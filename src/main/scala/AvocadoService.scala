@@ -13,11 +13,16 @@ class AvocadoServiceActor extends Actor with AvocadoService {
 
 trait AvocadoService extends HttpService {
   val avocadoRoute = {
-    get {
-      pathSingleSlash {
+    path("getMessages") {
+      get {
         respondWithMediaType(`application/json`) {
           complete("[]")
         }
+      }
+    } ~
+    path("sendMessage" / Segment) { message =>
+      post {
+        complete("Message sent successfully")
       }
     }
   }

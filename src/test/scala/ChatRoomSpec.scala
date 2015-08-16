@@ -12,10 +12,16 @@ import DefaultJsonProtocol._
 class ChatRoomSpec extends FlatSpec with ShouldMatchers with ScalatestRouteTest with AvocadoService {
   def actorRefFactory = system
 
-  "The REST api" should "return an empty list when there are no messages" in {
-    Get() ~> avocadoRoute ~> check {
+  "The REST api" should "return an empty list on GET when there are no messages" in {
+    Get("/getMessages") ~> avocadoRoute ~> check {
       mediaType should be(`application/json`)
       responseAs[String] should be("[]")
+    }
+  }
+
+  it should "be able to PUT a message" in {
+    Post("/sendMessage/message") ~> sealRoute(avocadoRoute) ~> check {
+      responseAs[String] should be("Message sent successfully")
     }
   }
 
