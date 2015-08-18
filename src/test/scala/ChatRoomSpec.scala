@@ -19,10 +19,20 @@ class ChatRoomSpec extends FlatSpec with ShouldMatchers with ScalatestRouteTest 
     }
   }
 
-  it should "be able to PUT a message" in {
+  it should "be able to POST a message" in {
     Post("/sendMessage/message") ~> sealRoute(avocadoRoute) ~> check {
       responseAs[String] should be("Message sent successfully")
     }
   }
+
+  it should "return a list of messages containing the message that was POSTed" in {
+    Post("/sendMessage/message") ~> sealRoute(avocadoRoute) ~> check {
+      responseAs[String] should be("Message sent successfully")
+    }
+    Get("/getMessages") ~> avocadoRoute ~> check {
+      responseAs[String] should contain("message")
+    }
+  }
+
 
 }
