@@ -17,7 +17,8 @@ libraryDependencies := {
     "com.typesafe.akka" %% "akka-slf4j"      % akkaVersion,
     "com.typesafe.akka" %% "akka-testkit"    % akkaVersion % "test",
     "ch.qos.logback"     % "logback-classic" % "1.1.3",
-    "org.scalatest"     %% "scalatest"       % "2.2.4" % "test"
+    "org.scalatest"     %% "scalatest"       % "2.2.4" % "test",
+    "org.mongodb"       %% "casbah"          % "2.8.2"
   )
 }
 
