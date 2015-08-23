@@ -5,7 +5,6 @@ import org.scalatest.matchers.ShouldMatchers
 
 /*
  TODO:
- - Return empty list when there are no messages
  - Return true when message was inserted, it has to have:
  --> ID
  --> Date
@@ -19,5 +18,11 @@ class DatabaseManagerSpec extends FlatSpec with ShouldMatchers {
   "The DatabaseManager" should "return an empty list when no messages" in {
     DatabaseManager.clear
     DatabaseManager.getMessages should be(List())
+  }
+
+  it should "return true if the message was inserted" in {
+    DatabaseManager.clear
+    DatabaseManager.sendMessage("Test message") should be(true)
+    DatabaseManager.getMessages should contain(Message(0,"Test message"))
   }
 }
