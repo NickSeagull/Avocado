@@ -33,6 +33,13 @@ trait AvocadoService extends HttpService {
         }
       }
     } ~
+    path("getMessages" / LongNumber) { messageId =>
+      get {
+        respondWithMediaType(`application/json`){
+          complete(DatabaseManager.getMessageById(messageId).toJson.toString)
+        }
+      }
+    } ~
     path("sendMessage" / Segment) { message =>
       post {
         DatabaseManager.sendMessage(message)

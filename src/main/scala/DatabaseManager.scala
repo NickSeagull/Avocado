@@ -14,9 +14,13 @@ object DatabaseManager {
 
   def count = messageCount
 
-  def getMessages:List[Message] = {
-    messages.find().map(buildMessage).toList
-  }
+  def getMessages:List[Message] = messages.find().map(buildMessage).toList
+
+  def getMessageById(id: Long): Message = buildMessage(
+    messages.
+      findOne(MongoDBObject("_id" -> id)).
+      getOrElse(MongoDBObject("_id" -> -1,"content" -> "Message not found"))
+  )
 
   def sendMessage(m: String) = {
     unsafeInsertMessage(m)
