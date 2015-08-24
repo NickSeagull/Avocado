@@ -9,7 +9,10 @@ object DatabaseManager {
 
   def clear {
     messages.drop()
+    messageCount = 0
   }
+
+  def count = messageCount
 
   def getMessages:List[Message] = {
     messages.find().map(buildMessage).toList
